@@ -9,15 +9,28 @@
 <title>Mostrar vehiculos</title>
 </head>
 <body style="text-align:center">
+
+	<form action="Lista.jsp" method="get">
+		Color a elegir <input type="text" name="color"> <input
+			type="submit" name="submit" value="Filtrar">
+	</form>
 	<%
-		
 		Conn co = new Conn();
-	co.startConnection();
-	String coches=co.listarCoches();
-	String camiones=co.listarCamiones();
-		
-	%> 
-	<%=coches %>
-	<%=camiones %>
+		co.startConnection();
+		String coches = "";
+		String camiones = "";
+		if (request.getParameter("submit") != null) {
+			String color = request.getParameter("color");
+			coches = co.listarCochesColor(color);
+			camiones = co.listarCamionesColor(color);
+		} else {
+
+			coches = co.listarCoches();
+			camiones = co.listarCamiones();
+		}
+	%>
+	<%=coches%>
+	<%=camiones%>
+
 	</body>
 </html>

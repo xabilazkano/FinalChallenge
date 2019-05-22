@@ -5,6 +5,11 @@ import java.sql.*;
 public class Conn {
 	public static Connection conn = null;
 
+	/**
+	 * Inicia la conexion
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public void startConnection() throws ClassNotFoundException, SQLException {
 		Class.forName("com.mysql.cj.jdbc.Driver");
 
@@ -13,6 +18,11 @@ public class Conn {
 		conn = DriverManager.getConnection(oracleURL, "dw18", "dw18");
 	}
 
+	/**
+	 * Devuelve la lista de coches en una tabla
+	 * @return lista de coches
+	 * @throws SQLException
+	 */
 	public String listarCoches() throws SQLException {
 		PreparedStatement pst = conn.prepareStatement(
 				"select s.id_serie,v.matricula,v.numero_bastidor,v.color,v.numero_asientos,v.precio,s.marca,s.modelo,s.fecha_fabricacion,c.numero_puertas,c.capacidad_maletero from vehiculos v,serie s,coches c where s.id_serie=v.id_serie and v.matricula=c.matricula and v.disponibilidad=true order by s.id_serie;");
@@ -33,6 +43,11 @@ public class Conn {
 		return text;
 	}
 
+	/**
+	 * Devuelve la lista de camiones en una tabla
+	 * @return lista de camiones
+	 * @throws SQLException
+	 */
 	public String listarCamiones() throws SQLException {
 		PreparedStatement pst = conn.prepareStatement(
 				"select s.id_serie,v.matricula,v.numero_bastidor,v.color,v.numero_asientos,v.precio,s.marca,s.modelo,s.fecha_fabricacion,c.carga,c.tipo_mercancia from vehiculos v,serie s,camiones c where s.id_serie=v.id_serie and v.matricula=c.matricula and v.disponibilidad=true order by s.id_serie;");
@@ -52,6 +67,12 @@ public class Conn {
 		return text;
 	}
 
+	/**
+	 * Devuelve el color de un coche dada la matricula
+	 * @param matricula
+	 * @return color del coche
+	 * @throws SQLException
+	 */
 	public String getColor(String matricula) throws SQLException {
 		String color = "";
 		PreparedStatement pst = conn.prepareStatement("select color from vehiculos where matricula=?; ");
@@ -64,6 +85,13 @@ public class Conn {
 
 	}
 
+	/**
+	 * Cambia el color de un coche dada la matricula
+	 * @param matricula
+	 * @param color
+	 * @return 1 si ha funcionado, 0 si no
+	 * @throws SQLException
+	 */
 	public int pintarVehiculo(String matricula, String color) throws SQLException {
 
 		PreparedStatement pst;
@@ -74,6 +102,14 @@ public class Conn {
 
 	}
 
+	/**
+	 * Devuelve el id de una serie
+	 * @param marca
+	 * @param modelo
+	 * @param fecha
+	 * @return id de la serie, 0 si no se ha encontrado
+	 * @throws SQLException
+	 */
 	public int buscarSerie(String marca, String modelo, String fecha) throws SQLException {
 		PreparedStatement pst = conn
 				.prepareStatement("select * from serie where marca=? and modelo=? and fecha_fabricacion=?;");
@@ -89,6 +125,14 @@ public class Conn {
 		}
 	}
 
+	/**
+	 * Añade una serie
+	 * @param marca
+	 * @param modelo
+	 * @param fecha
+	 * @return 1 si ha funcionado, 0 si no 
+	 * @throws SQLException
+	 */
 	public int añadirSerie(String marca, String modelo, String fecha) throws SQLException {
 		PreparedStatement pst = conn
 				.prepareStatement("insert into serie(marca,modelo,fecha_fabricacion) values(?,?,?);");
@@ -98,6 +142,11 @@ public class Conn {
 		return pst.executeUpdate();
 	}
 
+	/**
+	 * Añade un nuevo coche
+	 * @param coche
+	 * @throws SQLException
+	 */
 	public void comprarCoche(Coche coche) throws SQLException {
 		if (buscarSerie(coche.getMarca(), coche.getModelo(), coche.getFechaFabricacion()) == 0) {
 			añadirSerie(coche.getMarca(), coche.getModelo(), coche.getFechaFabricacion());
@@ -122,6 +171,11 @@ public class Conn {
 		pst2.executeUpdate();
 	}
 
+	/**
+	 * Añade un nuevo camion
+	 * @param camion
+	 * @throws SQLException
+	 */
 	public void comprarCamion(Camion camion) throws SQLException {
 		if (buscarSerie(camion.getMarca(), camion.getModelo(), camion.getFechaFabricacion()) == 0) {
 			añadirSerie(camion.getMarca(), camion.getModelo(), camion.getFechaFabricacion());
@@ -146,6 +200,11 @@ public class Conn {
 		pst2.executeUpdate();
 	}
 
+	/**
+	 * Comprueba si el formato de la matricula es correcto
+	 * @param matricula
+	 * @return true si es correcto, false si es incorrecto
+	 */
 	public boolean comprobarMatricula(String matricula) {
 		boolean result = true;
 		if (matricula.length() == 7) {
@@ -169,6 +228,11 @@ public class Conn {
 		return result;
 	}
 
+	/**
+	 * Comprueba que el formato del numero de bastidor es correcto
+	 * @param bastidor
+	 * @return true si es correcto, false si es incorrecto
+	 */
 	public boolean comprobarNumeroBastidor(String bastidor) {
 		boolean result = true;
 
@@ -184,6 +248,11 @@ public class Conn {
 
 	}
 
+	/**
+	 * Comprueba que un String esta solo formada por digitos
+	 * @param num
+	 * @return true si es correcto, false si es incorrecto
+	 */
 	public boolean comprobarNumero(String num) {
 		boolean result = true;
 		char[] numero = num.toCharArray();
@@ -195,6 +264,11 @@ public class Conn {
 		return result;
 	}
 
+	/**
+	 * Comprueba si el formato de la fecha es correcto
+	 * @param fecha
+	 * @return
+	 */
 	public boolean comprobarFecha(String fecha) {
 		boolean result = true;
 		if (fecha.length() == 10) {
@@ -221,6 +295,11 @@ public class Conn {
 		return result;
 	}
 
+	/**
+	 * Comprueba si ls mercancia es de los tipos disponibles
+	 * @param mercancia
+	 * @return true si es correcto, false si es incorrecto
+	 */
 	public boolean comprobarMercancia(String mercancia) {
 		boolean result = true;
 		if (!mercancia.equals("G") && !mercancia.equals("A") && !mercancia.equals("P")) {
@@ -229,6 +308,16 @@ public class Conn {
 		return result;
 	}
 
+	/**
+	 * Comprueba que todos los atributos son correctos utilizando los metodos anteriores
+	 * @param matricula
+	 * @param numBastidor
+	 * @param numeroAsientos
+	 * @param precio
+	 * @param fecha
+	 * @param numeroPuertas
+	 * @return true si es correcto, false si es incorrecto
+	 */
 	public boolean comprobarCoche(String matricula, String numBastidor, String numeroAsientos, String precio,
 			String fecha, String numeroPuertas) {
 		if (comprobarMatricula(matricula) && comprobarNumeroBastidor(numBastidor) && comprobarNumero(numeroAsientos)
@@ -242,6 +331,17 @@ public class Conn {
 
 	}
 
+	/**
+	 * Comprueba que todos los atributos son correctos utilizando los metodos anteriores
+	 * @param matricula
+	 * @param numBastidor
+	 * @param numeroAsientos
+	 * @param precio
+	 * @param fecha
+	 * @param carga
+	 * @param tipoMercancia
+	 * @return true si es correcto, false si es incorrecto
+	 */
 	public boolean comprobarCamion(String matricula, String numBastidor, String numeroAsientos, String precio,
 			String fecha, String carga, String tipoMercancia) {
 
@@ -257,6 +357,12 @@ public class Conn {
 
 	}
 
+	/**
+	 * Vende un coche dada la matricula
+	 * @param matricula
+	 * @return 1 si es correcto, 0 si es incorrecto
+	 * @throws SQLException
+	 */
 	public int venderCoche(String matricula) throws SQLException {
 		PreparedStatement pst;
 		pst = conn.prepareStatement("update vehiculos set disponibilidad=? where matricula=?;");
@@ -265,4 +371,62 @@ public class Conn {
 		return pst.executeUpdate();
 
 	}
+	
+	/**
+	 * Devuelve la lista de coches en una tabla dado un color
+	 * @param color
+	 * @return lista de coches
+	 * @throws SQLException
+	 */
+	public String listarCochesColor(String color) throws SQLException {
+		String c = color;
+		PreparedStatement pst = conn.prepareStatement(
+				"select s.id_serie,v.matricula,v.numero_bastidor,v.color,v.numero_asientos,v.precio,s.marca,s.modelo,s.fecha_fabricacion,c.numero_puertas,c.capacidad_maletero from vehiculos v,serie s,coches c where s.id_serie=v.id_serie and v.matricula=c.matricula and v.disponibilidad=true and v.color=? order by s.id_serie;");
+		pst.setString(1,c);
+		ResultSet result = pst.executeQuery();
+		String text = "<center><h3>Coches</h3><table border=1>" + "<tr>"
+				+ "<td>Id serie</td><td>Matricula</td><td>Numero de bastidor</td><td>Color</td><td>Numero de Asientos</td><td>Precio</td><td>Marca</td><td>Modelo</td><td>Fecha de fabricación</td><td>Número de puertas</td><td>Capacidad maletero</td></tr>";
+		while (result.next()) {
+			text = text + "<tr><td>" + result.getInt(1) + "</td><td>" + result.getString(2) + "</td><td>"
+					+ result.getString(3) + "</td><td>" + result.getString(4) + "</td><td>" + result.getInt(5)
+					+ "</td><td>" + result.getInt(6) + "</td><td>" + result.getString(7) + "</td><td>"
+					+ result.getString(8) + "</td><td>" + result.getDate(9) + "</td><td>" + result.getInt(10)
+					+ "</td><td>" + result.getInt(11) + "</td><td><a href='Pintar.jsp?matricula=" + result.getString(2)
+					+ "'>Pintar</a></td><td><a href='Vender.jsp?matricula=" + result.getString(2)
+					+ "'>Vender</a></td></tr>";
+		}
+		text = text + "</table>";
+			
+
+		return text;
+	}
+	
+	/**
+	 * Devuelve la lista de camiones dado un color
+	 * @param color
+	 * @return lista de camiones
+	 * @throws SQLException
+	 */
+	public String listarCamionesColor(String color) throws SQLException {
+		String c = color;
+		PreparedStatement pst = conn.prepareStatement(
+				"select s.id_serie,v.matricula,v.numero_bastidor,v.color,v.numero_asientos,v.precio,s.marca,s.modelo,s.fecha_fabricacion,c.carga,c.tipo_mercancia from vehiculos v,serie s,camiones c where s.id_serie=v.id_serie and v.matricula=c.matricula and v.disponibilidad=true and v.color=? order by s.id_serie;");
+		pst.setString(1,c);
+		ResultSet result = pst.executeQuery();
+		String text = "<center><h3>Camiones</h3><table border=1>" + "<tr>"
+				+ "<td>Id serie</td><td>Matricula</td><td>Numero de bastidor</td><td>Color</td><td>Numero de Asientos</td><td>Precio</td><td>Marca</td><td>Modelo</td><td>Fecha de fabricación</td><td>Carga</td><td>Tipo de mercancia</td></tr>";
+		while (result.next()) {
+			text = text + "<tr><td>" + result.getInt(1) + "</td><td>" + result.getString(2) + "</td><td>"
+					+ result.getString(3) + "</td><td>" + result.getString(4) + "</td><td>" + result.getInt(5)
+					+ "</td><td>" + result.getInt(6) + "</td><td>" + result.getString(7) + "</td><td>"
+					+ result.getString(8) + "</td><td>" + result.getDate(9) + "</td><td>" + result.getInt(10)
+					+ "</td><td>" + result.getString(11) + "</td><td><a href='Pintar.jsp?matricula="
+					+ result.getString(2) + "'>Pintar</a></td><td><a href='Vender.jsp?matricula=" + result.getString(2)
+					+ "'>Vender</a></td></tr>";
+		}
+		text = text + "</table><br><a href='Lista.jsp'>Volver a la lista completa</a></br>";
+
+		return text;
+	}
+
 }
