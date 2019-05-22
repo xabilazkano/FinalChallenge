@@ -19,7 +19,7 @@
 			if(co.comprobarCamion(request.getParameter("matricula"),request.getParameter("numBastidor"),request.getParameter("numAsientos"),request.getParameter("precio"),request.getParameter("fecha"),request.getParameter("carga"),request.getParameter("mercancia"))){
 			String marca=request.getParameter("marca");
 			String modelo=request.getParameter("modelo");
-			Camion camion=new Camion(request.getParameter("matricula"),Integer.parseInt(request.getParameter("numBastidor")),request.getParameter("color"),Integer.parseInt(request.getParameter("numAsientos")),Integer.parseInt(request.getParameter("precio")),request.getParameter("marca"),request.getParameter("modelo"),request.getParameter("fecha"),request.getParameter("carga"),request.getParameter("mercancia"));
+			Camion camion=new Camion(request.getParameter("matricula"),request.getParameter("numBastidor"),request.getParameter("color"),Integer.parseInt(request.getParameter("numAsientos")),Integer.parseInt(request.getParameter("precio")),request.getParameter("marca"),request.getParameter("modelo"),request.getParameter("fecha"),request.getParameter("carga"),request.getParameter("mercancia"));
 			co.comprarCamion(camion);
 			%>
 			Has comprado un camion <%=marca%> <%=modelo%><br>

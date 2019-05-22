@@ -21,7 +21,7 @@ public class Conn {
 				+ "<td>Id serie</td><td>Matricula</td><td>Numero de bastidor</td><td>Color</td><td>Numero de Asientos</td><td>Precio</td><td>Marca</td><td>Modelo</td><td>Fecha de fabricación</td><td>Número de puertas</td><td>Capacidad maletero</td></tr>";
 		while (result.next()) {
 			text = text + "<tr><td>" + result.getInt(1) + "</td><td>" + result.getString(2) + "</td><td>"
-					+ result.getInt(3) + "</td><td>" + result.getString(4) + "</td><td>" + result.getInt(5)
+					+ result.getString(3) + "</td><td>" + result.getString(4) + "</td><td>" + result.getInt(5)
 					+ "</td><td>" + result.getInt(6) + "</td><td>" + result.getString(7) + "</td><td>"
 					+ result.getString(8) + "</td><td>" + result.getDate(9) + "</td><td>" + result.getInt(10)
 					+ "</td><td>" + result.getInt(11) + "</td><td><a href='Pintar.jsp?matricula=" + result.getString(2)
@@ -41,7 +41,7 @@ public class Conn {
 				+ "<td>Id serie</td><td>Matricula</td><td>Numero de bastidor</td><td>Color</td><td>Numero de Asientos</td><td>Precio</td><td>Marca</td><td>Modelo</td><td>Fecha de fabricación</td><td>Carga</td><td>Tipo de mercancia</td></tr>";
 		while (result.next()) {
 			text = text + "<tr><td>" + result.getInt(1) + "</td><td>" + result.getString(2) + "</td><td>"
-					+ result.getInt(3) + "</td><td>" + result.getString(4) + "</td><td>" + result.getInt(5)
+					+ result.getString(3) + "</td><td>" + result.getString(4) + "</td><td>" + result.getInt(5)
 					+ "</td><td>" + result.getInt(6) + "</td><td>" + result.getString(7) + "</td><td>"
 					+ result.getString(8) + "</td><td>" + result.getDate(9) + "</td><td>" + result.getInt(10)
 					+ "</td><td>" + result.getString(11) + "</td><td><a href='Pintar.jsp?matricula="
@@ -107,7 +107,7 @@ public class Conn {
 
 		PreparedStatement pst = conn.prepareStatement("insert into vehiculos values(?,?,?,?,?,?,?);");
 		pst.setString(1, coche.getMatricula());
-		pst.setInt(2, coche.getNumeroBastidor());
+		pst.setString(2, coche.getNumeroBastidor());
 		pst.setString(3, coche.getColor());
 		pst.setInt(4, coche.getNumeroAsientos());
 		pst.setInt(5, id_serie);
@@ -131,12 +131,12 @@ public class Conn {
 
 		PreparedStatement pst = conn.prepareStatement("insert into vehiculos values(?,?,?,?,?,?,?);");
 		pst.setString(1, camion.getMatricula());
-		pst.setInt(2, camion.getNumeroBastidor());
+		pst.setString(2, camion.getNumeroBastidor());
 		pst.setString(3, camion.getColor());
 		pst.setInt(4, camion.getNumeroAsientos());
 		pst.setInt(5, id_serie);
 		pst.setInt(6, camion.getPrecio());
-		pst.setBoolean(7,true);
+		pst.setBoolean(7, true);
 		pst.executeUpdate();
 
 		PreparedStatement pst2 = conn.prepareStatement("insert into camiones values(?,?,?);");
@@ -158,6 +158,8 @@ public class Conn {
 			for (int i = 4; i < 7; i++) {
 				if (!Character.isLetter(ma[i])) {
 					result = false;
+				} else if (!Character.isUpperCase(ma[i])) {
+					result = false;
 				}
 			}
 		} else {
@@ -165,6 +167,21 @@ public class Conn {
 		}
 
 		return result;
+	}
+
+	public boolean comprobarNumeroBastidor(String bastidor) {
+		boolean result = true;
+
+		if (bastidor.length() == 17) {
+			if (!bastidor.matches("[A-Z0-9]+")) {
+				result = false;
+			}
+		} else {
+			result = false;
+		}
+
+		return result;
+
 	}
 
 	public boolean comprobarNumero(String num) {
@@ -214,7 +231,7 @@ public class Conn {
 
 	public boolean comprobarCoche(String matricula, String numBastidor, String numeroAsientos, String precio,
 			String fecha, String numeroPuertas) {
-		if (comprobarMatricula(matricula) && comprobarNumero(numBastidor) && comprobarNumero(numeroAsientos)
+		if (comprobarMatricula(matricula) && comprobarNumeroBastidor(numBastidor) && comprobarNumero(numeroAsientos)
 				&& comprobarNumero(precio) && comprobarFecha(fecha) && comprobarNumero(numeroPuertas)) {
 			return true;
 		}
@@ -228,7 +245,7 @@ public class Conn {
 	public boolean comprobarCamion(String matricula, String numBastidor, String numeroAsientos, String precio,
 			String fecha, String carga, String tipoMercancia) {
 
-		if (comprobarMatricula(matricula) && comprobarNumero(numBastidor) && comprobarNumero(numeroAsientos)
+		if (comprobarMatricula(matricula) && comprobarNumeroBastidor(numBastidor) && comprobarNumero(numeroAsientos)
 				&& comprobarNumero(precio) && comprobarFecha(fecha) && comprobarNumero(carga)
 				&& comprobarMercancia(tipoMercancia)) {
 			return true;

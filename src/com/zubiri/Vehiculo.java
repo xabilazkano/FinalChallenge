@@ -2,7 +2,7 @@ package com.zubiri;
 
 public class Vehiculo {
 	private String matricula = "";
-	private int numeroBastidor = 0;
+	private String numeroBastidor = "";
 	private String color = "";
 	private int numeroAsientos = 0;
 	private int precio = 0;
@@ -10,7 +10,7 @@ public class Vehiculo {
 	private String modelo = "";
 	private String fechaFabricacion = "";
 	
-	public Vehiculo(String matricula,int numBastidor,String color,int numeroAsientos,int precio,String marca,String modelo,String fecha) {
+	public Vehiculo(String matricula,String numBastidor,String color,int numeroAsientos,int precio,String marca,String modelo,String fecha) {
 		this.matricula=matricula;
 		this.numeroBastidor=numBastidor;
 		this.color=color;
@@ -29,11 +29,11 @@ public class Vehiculo {
 		this.matricula = matricula;
 	}
 
-	public int getNumeroBastidor() {
+	public String getNumeroBastidor() {
 		return numeroBastidor;
 	}
 
-	public void setNumeroBastidor(int numeroBastidor) {
+	public void setNumeroBastidor(String numeroBastidor) {
 		this.numeroBastidor = numeroBastidor;
 	}
 

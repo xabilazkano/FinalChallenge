@@ -19,7 +19,7 @@
 				String marca = request.getParameter("marca");
 				String modelo = request.getParameter("modelo");
 				Coche coche = new Coche(request.getParameter("matricula"),
-						Integer.parseInt(request.getParameter("numBastidor")), request.getParameter("color"),
+						request.getParameter("numBastidor"), request.getParameter("color"),
 						Integer.parseInt(request.getParameter("numAsientos")),
 						Integer.parseInt(request.getParameter("precio")), request.getParameter("marca"),
 						request.getParameter("modelo"), request.getParameter("fecha"),
