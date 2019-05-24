@@ -61,4 +61,12 @@ public class Camion extends Vehiculo {
 		this.tipoMercancia = tipoMercancia;
 	}
 
+	public String camionString() {
+		String camion = getMatricula() + ", " + getNumeroBastidor() + ", " + getColor() + ", " + getNumeroAsientos()
+				+ ", " + getPrecio() + ", " + getMarca() + ", " + getModelo() + " " + getFechaFabricacion() + ", "
+				+ getCarga() + ", " + getTipoMercancia();
+
+		return camion;
+
+	}
 }

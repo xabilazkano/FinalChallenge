@@ -25,10 +25,10 @@
 						request.getParameter("modelo"), request.getParameter("fecha"),
 						Integer.parseInt(request.getParameter("numPuertas")), request.getParameter("maletero"));
 				co.comprarCoche(coche);
+				String cocheString = coche.cocheString();
 	%>
 	Has comprado un coche
-	<%=marca%>
-	<%=modelo%><br>
+	<%=cocheString %><br>
 	<a href="Lista.jsp">Ver lista de vehiculos</a>
 	<%
 		}
@@ -45,12 +45,12 @@
 		Número de bastidor <input type="text" name="numBastidor"> <br>
 		<br> Color <input type="text" name="color"><br> <br>
 		Número de asientos <input type="text" name="numAsientos"><br>
-		<br> Precio <input type="text" name="precio"><br> <br>
+		<br> Precio (&euro;) <input type="text" name="precio"><br> <br>
 		Marca <input type="text" name="marca"><br> <br>
 		Modelo <input type="text" name="modelo"><br> <br>
-		Fecha de fabricación <input type="text" name="fecha"><br>
+		Fecha de fabricación (aaaa-mm-dd) <input type="text" name="fecha"><br>
 		<br> Número de puertas <input type="text" name="numPuertas"><br>
-		<br> Capacidad de maletero <input type="text" name="maletero"><br>
+		<br> Capacidad de maletero (L) <input type="text" name="maletero"><br>
 		<br> <input type="submit" name="submit" value="Comprar">
 	</form>
 	<%

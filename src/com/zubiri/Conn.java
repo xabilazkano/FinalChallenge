@@ -363,7 +363,7 @@ public class Conn {
 	 * @return 1 si es correcto, 0 si es incorrecto
 	 * @throws SQLException
 	 */
-	public int venderCoche(String matricula) throws SQLException {
+	public int venderVehiculo(String matricula) throws SQLException {
 		PreparedStatement pst;
 		pst = conn.prepareStatement("update vehiculos set disponibilidad=? where matricula=?;");
 		pst.setBoolean(1, false);
@@ -427,6 +427,46 @@ public class Conn {
 		text = text + "</table><br><a href='Lista.jsp'>Volver a la lista completa</a></br>";
 
 		return text;
+	}
+	
+	public String cocheCamion(String matricula) throws SQLException {
+		PreparedStatement pst = conn.prepareStatement(
+				"select * from coches where matricula=?;");
+		pst.setString(1,matricula);
+		ResultSet result = pst.executeQuery();
+		if(result.next()) {
+			return "coche";
+		}
+		else {
+			return "camion";
+		}
+
+	}
+	
+	public Camion buscarCamion(String matricula) throws SQLException {
+		PreparedStatement pst = conn.prepareStatement("select v.matricula,v.numero_bastidor,v.color,v.numero_asientos,v.precio,s.marca,s.modelo,s.fecha_fabricacion,c.carga,c.tipo_mercancia from vehiculos v,serie s,camiones c where s.id_serie=v.id_serie and v.matricula=c.matricula and v.matricula=?;");
+		pst.setString(1,matricula);
+		ResultSet result = pst.executeQuery();
+		if(result.next()) {
+			Camion camion= new Camion(result.getString(1),result.getString(2),result.getString(3),result.getInt(4),result.getInt(5),result.getString(6),result.getString(7),result.getString(8),result.getString(9),result.getString(10));
+			return camion;
+		}
+		
+		return null;
+		
+	}
+	
+	public Coche buscarCoche(String matricula) throws SQLException {
+		PreparedStatement pst = conn.prepareStatement("select v.matricula,v.numero_bastidor,v.color,v.numero_asientos,v.precio,s.marca,s.modelo,s.fecha_fabricacion,c.numero_puertas,c.capacidad_maletero from vehiculos v,serie s,coches c where s.id_serie=v.id_serie and v.matricula=c.matricula and v.matricula=?;");
+		pst.setString(1,matricula);
+		ResultSet result = pst.executeQuery();
+		if(result.next()) {
+			Coche coche= new Coche(result.getString(1),result.getString(2),result.getString(3),result.getInt(4),result.getInt(5),result.getString(6),result.getString(7),result.getString(8),result.getInt(9),result.getString(10));
+			return coche;
+		}
+		
+		return null;
+		
 	}
 
 }
