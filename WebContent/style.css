@@ -1,0 +1,37 @@
+@charset "ISO-8859-1";
+
+body, html {
+	text-align: center;
+	background-color: #F0FDFB;
+}
+
+/*TAULAKO ERRENKADAK */
+th, td {
+	padding: 5px;
+	text-align: center;
+	border-bottom: 1px solid #ddd;
+}
+
+tr:nth-child(even) {
+	background-color: #DFFFFA;
+}
+
+th {
+	background-color: #478376;
+	color: white;
+}
+/* */
+/* TITULUAK */
+h3 {
+	text-align: center;
+}
+
+/* */
+
+a:visited {
+  color: blue;
+}
+/* unvisited link */
+a:link {
+  color: blue;
+}

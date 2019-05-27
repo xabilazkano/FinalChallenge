@@ -6,9 +6,10 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<link rel="stylesheet" type="text/css" href="style.css">
 <title>Mostrar vehiculos</title>
 </head>
-<body style="text-align:center">
+<body>
 
 	<form action="Lista.jsp" method="get">
 		Color a elegir <input type="text" name="color"> <input

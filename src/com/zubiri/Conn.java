@@ -7,6 +7,7 @@ public class Conn {
 
 	/**
 	 * Inicia la conexion
+	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
@@ -20,6 +21,7 @@ public class Conn {
 
 	/**
 	 * Devuelve la lista de coches en una tabla
+	 * 
 	 * @return lista de coches
 	 * @throws SQLException
 	 */
@@ -27,8 +29,8 @@ public class Conn {
 		PreparedStatement pst = conn.prepareStatement(
 				"select s.id_serie,v.matricula,v.numero_bastidor,v.color,v.numero_asientos,v.precio,s.marca,s.modelo,s.fecha_fabricacion,c.numero_puertas,c.capacidad_maletero from vehiculos v,serie s,coches c where s.id_serie=v.id_serie and v.matricula=c.matricula and v.disponibilidad=true order by s.id_serie;");
 		ResultSet result = pst.executeQuery();
-		String text = "<center><h3>Coches</h3><table border=1>" + "<tr>"
-				+ "<td>Id serie</td><td>Matricula</td><td>Numero de bastidor</td><td>Color</td><td>Numero de Asientos</td><td>Precio</td><td>Marca</td><td>Modelo</td><td>Fecha de fabricación</td><td>Número de puertas</td><td>Capacidad maletero</td></tr>";
+		String text = "<center><h3>Coches</h3><table>" + "<tr>"
+				+ "<th>Id serie</th><th>Matricula</th><th>Numero de bastidor</th><th>Color</th><th>Numero de Asientos</th><th>Precio</th><th>Marca</th><th>Modelo</th><th>Fecha de fabricación</th><th>Número de puertas</th><th>Capacidad maletero</th></tr>";
 		while (result.next()) {
 			text = text + "<tr><td>" + result.getInt(1) + "</td><td>" + result.getString(2) + "</td><td>"
 					+ result.getString(3) + "</td><td>" + result.getString(4) + "</td><td>" + result.getInt(5)
@@ -45,6 +47,7 @@ public class Conn {
 
 	/**
 	 * Devuelve la lista de camiones en una tabla
+	 * 
 	 * @return lista de camiones
 	 * @throws SQLException
 	 */
@@ -52,8 +55,8 @@ public class Conn {
 		PreparedStatement pst = conn.prepareStatement(
 				"select s.id_serie,v.matricula,v.numero_bastidor,v.color,v.numero_asientos,v.precio,s.marca,s.modelo,s.fecha_fabricacion,c.carga,c.tipo_mercancia from vehiculos v,serie s,camiones c where s.id_serie=v.id_serie and v.matricula=c.matricula and v.disponibilidad=true order by s.id_serie;");
 		ResultSet result = pst.executeQuery();
-		String text = "<center><h3>Camiones</h3><table border=1>" + "<tr>"
-				+ "<td>Id serie</td><td>Matricula</td><td>Numero de bastidor</td><td>Color</td><td>Numero de Asientos</td><td>Precio</td><td>Marca</td><td>Modelo</td><td>Fecha de fabricación</td><td>Carga</td><td>Tipo de mercancia</td></tr>";
+		String text = "<center><h3>Camiones</h3><table>" + "<tr>"
+				+ "<th>Id serie</th><th>Matricula</th><th>Numero de bastidor</th><th>Color</th><th>Numero de Asientos</th><th>Precio</th><th>Marca</th><th>Modelo</th><th>Fecha de fabricación</th><th>Carga</th><th>Tipo de mercancia</th></tr>";
 		while (result.next()) {
 			text = text + "<tr><td>" + result.getInt(1) + "</td><td>" + result.getString(2) + "</td><td>"
 					+ result.getString(3) + "</td><td>" + result.getString(4) + "</td><td>" + result.getInt(5)
@@ -69,6 +72,7 @@ public class Conn {
 
 	/**
 	 * Devuelve el color de un coche dada la matricula
+	 * 
 	 * @param matricula
 	 * @return color del coche
 	 * @throws SQLException
@@ -87,6 +91,7 @@ public class Conn {
 
 	/**
 	 * Cambia el color de un coche dada la matricula
+	 * 
 	 * @param matricula
 	 * @param color
 	 * @return 1 si ha funcionado, 0 si no
@@ -104,6 +109,7 @@ public class Conn {
 
 	/**
 	 * Devuelve el id de una serie
+	 * 
 	 * @param marca
 	 * @param modelo
 	 * @param fecha
@@ -127,10 +133,11 @@ public class Conn {
 
 	/**
 	 * Añade una serie
+	 * 
 	 * @param marca
 	 * @param modelo
 	 * @param fecha
-	 * @return 1 si ha funcionado, 0 si no 
+	 * @return 1 si ha funcionado, 0 si no
 	 * @throws SQLException
 	 */
 	public int añadirSerie(String marca, String modelo, String fecha) throws SQLException {
@@ -144,6 +151,7 @@ public class Conn {
 
 	/**
 	 * Añade un nuevo coche
+	 * 
 	 * @param coche
 	 * @throws SQLException
 	 */
@@ -173,6 +181,7 @@ public class Conn {
 
 	/**
 	 * Añade un nuevo camion
+	 * 
 	 * @param camion
 	 * @throws SQLException
 	 */
@@ -202,6 +211,7 @@ public class Conn {
 
 	/**
 	 * Comprueba si el formato de la matricula es correcto
+	 * 
 	 * @param matricula
 	 * @return true si es correcto, false si es incorrecto
 	 */
@@ -230,6 +240,7 @@ public class Conn {
 
 	/**
 	 * Comprueba que el formato del numero de bastidor es correcto
+	 * 
 	 * @param bastidor
 	 * @return true si es correcto, false si es incorrecto
 	 */
@@ -250,6 +261,7 @@ public class Conn {
 
 	/**
 	 * Comprueba que un String esta solo formada por digitos
+	 * 
 	 * @param num
 	 * @return true si es correcto, false si es incorrecto
 	 */
@@ -266,6 +278,7 @@ public class Conn {
 
 	/**
 	 * Comprueba si el formato de la fecha es correcto
+	 * 
 	 * @param fecha
 	 * @return
 	 */
@@ -297,6 +310,7 @@ public class Conn {
 
 	/**
 	 * Comprueba si ls mercancia es de los tipos disponibles
+	 * 
 	 * @param mercancia
 	 * @return true si es correcto, false si es incorrecto
 	 */
@@ -309,7 +323,9 @@ public class Conn {
 	}
 
 	/**
-	 * Comprueba que todos los atributos son correctos utilizando los metodos anteriores
+	 * Comprueba que todos los atributos son correctos utilizando los metodos
+	 * anteriores
+	 * 
 	 * @param matricula
 	 * @param numBastidor
 	 * @param numeroAsientos
@@ -332,7 +348,9 @@ public class Conn {
 	}
 
 	/**
-	 * Comprueba que todos los atributos son correctos utilizando los metodos anteriores
+	 * Comprueba que todos los atributos son correctos utilizando los metodos
+	 * anteriores
+	 * 
 	 * @param matricula
 	 * @param numBastidor
 	 * @param numeroAsientos
@@ -359,6 +377,7 @@ public class Conn {
 
 	/**
 	 * Vende un coche dada la matricula
+	 * 
 	 * @param matricula
 	 * @return 1 si es correcto, 0 si es incorrecto
 	 * @throws SQLException
@@ -371,9 +390,10 @@ public class Conn {
 		return pst.executeUpdate();
 
 	}
-	
+
 	/**
 	 * Devuelve la lista de coches en una tabla dado un color
+	 * 
 	 * @param color
 	 * @return lista de coches
 	 * @throws SQLException
@@ -382,10 +402,10 @@ public class Conn {
 		String c = color;
 		PreparedStatement pst = conn.prepareStatement(
 				"select s.id_serie,v.matricula,v.numero_bastidor,v.color,v.numero_asientos,v.precio,s.marca,s.modelo,s.fecha_fabricacion,c.numero_puertas,c.capacidad_maletero from vehiculos v,serie s,coches c where s.id_serie=v.id_serie and v.matricula=c.matricula and v.disponibilidad=true and v.color=? order by s.id_serie;");
-		pst.setString(1,c);
+		pst.setString(1, c);
 		ResultSet result = pst.executeQuery();
-		String text = "<center><h3>Coches</h3><table border=1>" + "<tr>"
-				+ "<td>Id serie</td><td>Matricula</td><td>Numero de bastidor</td><td>Color</td><td>Numero de Asientos</td><td>Precio</td><td>Marca</td><td>Modelo</td><td>Fecha de fabricación</td><td>Número de puertas</td><td>Capacidad maletero</td></tr>";
+		String text = "<center><h3>Coches</h3><table>" + "<tr>"
+				+ "<th>Id serie</th><th>Matricula</th><th>Numero de bastidor</th><th>Color</th><th>Numero de Asientos</th><th>Precio</th><th>Marca</th><th>Modelo</th><th>Fecha de fabricación</th><th>Número de puertas</th><th>Capacidad maletero</th></tr>";
 		while (result.next()) {
 			text = text + "<tr><td>" + result.getInt(1) + "</td><td>" + result.getString(2) + "</td><td>"
 					+ result.getString(3) + "</td><td>" + result.getString(4) + "</td><td>" + result.getInt(5)
@@ -396,13 +416,13 @@ public class Conn {
 					+ "'>Vender</a></td></tr>";
 		}
 		text = text + "</table>";
-			
 
 		return text;
 	}
-	
+
 	/**
 	 * Devuelve la lista de camiones dado un color
+	 * 
 	 * @param color
 	 * @return lista de camiones
 	 * @throws SQLException
@@ -411,10 +431,10 @@ public class Conn {
 		String c = color;
 		PreparedStatement pst = conn.prepareStatement(
 				"select s.id_serie,v.matricula,v.numero_bastidor,v.color,v.numero_asientos,v.precio,s.marca,s.modelo,s.fecha_fabricacion,c.carga,c.tipo_mercancia from vehiculos v,serie s,camiones c where s.id_serie=v.id_serie and v.matricula=c.matricula and v.disponibilidad=true and v.color=? order by s.id_serie;");
-		pst.setString(1,c);
+		pst.setString(1, c);
 		ResultSet result = pst.executeQuery();
-		String text = "<center><h3>Camiones</h3><table border=1>" + "<tr>"
-				+ "<td>Id serie</td><td>Matricula</td><td>Numero de bastidor</td><td>Color</td><td>Numero de Asientos</td><td>Precio</td><td>Marca</td><td>Modelo</td><td>Fecha de fabricación</td><td>Carga</td><td>Tipo de mercancia</td></tr>";
+		String text = "<center><h3>Camiones</h3><table>" + "<tr>"
+				+ "<th>Id serie</th><th>Matricula</th><th>Numero de bastidor</th><th>Color</th><th>Numero de Asientos</th><th>Precio</th><th>Marca</th><th>Modelo</th><th>Fecha de fabricación</th><th>Carga</th><th>Tipo de mercancia</th></tr>";
 		while (result.next()) {
 			text = text + "<tr><td>" + result.getInt(1) + "</td><td>" + result.getString(2) + "</td><td>"
 					+ result.getString(3) + "</td><td>" + result.getString(4) + "</td><td>" + result.getInt(5)
@@ -428,45 +448,49 @@ public class Conn {
 
 		return text;
 	}
-	
+
 	public String cocheCamion(String matricula) throws SQLException {
-		PreparedStatement pst = conn.prepareStatement(
-				"select * from coches where matricula=?;");
-		pst.setString(1,matricula);
+		PreparedStatement pst = conn.prepareStatement("select * from coches where matricula=?;");
+		pst.setString(1, matricula);
 		ResultSet result = pst.executeQuery();
-		if(result.next()) {
+		if (result.next()) {
 			return "coche";
-		}
-		else {
+		} else {
 			return "camion";
 		}
 
 	}
-	
+
 	public Camion buscarCamion(String matricula) throws SQLException {
-		PreparedStatement pst = conn.prepareStatement("select v.matricula,v.numero_bastidor,v.color,v.numero_asientos,v.precio,s.marca,s.modelo,s.fecha_fabricacion,c.carga,c.tipo_mercancia from vehiculos v,serie s,camiones c where s.id_serie=v.id_serie and v.matricula=c.matricula and v.matricula=?;");
-		pst.setString(1,matricula);
+		PreparedStatement pst = conn.prepareStatement(
+				"select v.matricula,v.numero_bastidor,v.color,v.numero_asientos,v.precio,s.marca,s.modelo,s.fecha_fabricacion,c.carga,c.tipo_mercancia from vehiculos v,serie s,camiones c where s.id_serie=v.id_serie and v.matricula=c.matricula and v.matricula=?;");
+		pst.setString(1, matricula);
 		ResultSet result = pst.executeQuery();
-		if(result.next()) {
-			Camion camion= new Camion(result.getString(1),result.getString(2),result.getString(3),result.getInt(4),result.getInt(5),result.getString(6),result.getString(7),result.getString(8),result.getString(9),result.getString(10));
+		if (result.next()) {
+			Camion camion = new Camion(result.getString(1), result.getString(2), result.getString(3), result.getInt(4),
+					result.getInt(5), result.getString(6), result.getString(7), result.getString(8),
+					result.getString(9), result.getString(10));
 			return camion;
 		}
-		
+
 		return null;
-		
+
 	}
-	
+
 	public Coche buscarCoche(String matricula) throws SQLException {
-		PreparedStatement pst = conn.prepareStatement("select v.matricula,v.numero_bastidor,v.color,v.numero_asientos,v.precio,s.marca,s.modelo,s.fecha_fabricacion,c.numero_puertas,c.capacidad_maletero from vehiculos v,serie s,coches c where s.id_serie=v.id_serie and v.matricula=c.matricula and v.matricula=?;");
-		pst.setString(1,matricula);
+		PreparedStatement pst = conn.prepareStatement(
+				"select v.matricula,v.numero_bastidor,v.color,v.numero_asientos,v.precio,s.marca,s.modelo,s.fecha_fabricacion,c.numero_puertas,c.capacidad_maletero from vehiculos v,serie s,coches c where s.id_serie=v.id_serie and v.matricula=c.matricula and v.matricula=?;");
+		pst.setString(1, matricula);
 		ResultSet result = pst.executeQuery();
-		if(result.next()) {
-			Coche coche= new Coche(result.getString(1),result.getString(2),result.getString(3),result.getInt(4),result.getInt(5),result.getString(6),result.getString(7),result.getString(8),result.getInt(9),result.getString(10));
+		if (result.next()) {
+			Coche coche = new Coche(result.getString(1), result.getString(2), result.getString(3), result.getInt(4),
+					result.getInt(5), result.getString(6), result.getString(7), result.getString(8), result.getInt(9),
+					result.getString(10));
 			return coche;
 		}
-		
+
 		return null;
-		
+
 	}
 
 }

@@ -6,9 +6,11 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<link rel="stylesheet" type="text/css" href="style.css">
 <title>Comprar Coche</title>
 </head>
-<body style="text-align:center">
+<h3>COMPRAR COCHE</h3>
+<body>
 	<%
 		if (request.getParameter("submit") != null) {
 			Conn co = new Conn();

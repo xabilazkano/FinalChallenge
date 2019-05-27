@@ -6,9 +6,10 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<link rel="stylesheet" type="text/css" href="style.css">
 <title>Pintar</title>
 </head>
-<body style="text-align:center">
+<body>
 
 	<%
 		Conn co = new Conn();
@@ -33,13 +34,13 @@
 			String color = co.getColor(matricula);
 	%>
 	<form action="Pintar.jsp" method="get">
-		Nuevo color <input type="text" name="color" value="<%=color%>"> <input
-			type="hidden" name="matricula" value="<%=matricula%>"> <input
-			type="submit" name="submit" value="Pintar">
+		Nuevo color <input type="text" name="color" value="<%=color%>">
+		<input type="hidden" name="matricula" value="<%=matricula%>">
+		<input type="submit" name="submit" value="Pintar">
 	</form>
 	<%
 		}
 	%>
-	
+
 </body>
 </html>

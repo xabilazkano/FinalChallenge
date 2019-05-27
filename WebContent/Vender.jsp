@@ -6,9 +6,10 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<link rel="stylesheet" type="text/css" href="style.css">
 <title>Vender vehiculo</title>
 </head>
-<body style="text-align: center">
+<body>
 
 	<%
 		Conn co = new Conn();

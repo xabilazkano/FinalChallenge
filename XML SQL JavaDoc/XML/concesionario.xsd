@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="vehiculos">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="coches" >
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="coche" minOccurs="0" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element type="xs:integer" name="id_serie"/>
+                  <xs:element name="matricula">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="7"/>
+                        <xs:maxLength value="7"/>
+                        <xs:pattern value="[A-Z0-9]+"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="numero_bastidor">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="17"/>
+                        <xs:minLength value="17"/>
+                       <xs:pattern value="[A-Z0-9]+"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element type="xs:string" name="color"/>
+                  <xs:element type="xs:integer" name="numero_asientos"/>
+                  <xs:element type="xs:integer" name="precio"/>
+                  <xs:element type="xs:string" name="marca"/>
+                  <xs:element type="xs:string" name="modelo"/>
+                  <xs:element type="xs:date" name="fecha_fabricacion"/>
+                  <xs:element type="xs:integer" name="numero_puertas"/>
+                  <xs:element type="xs:integer" name="capacidad_maletero"/>
+                </xs:sequence>
+              </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+          </xs:element>
+           <xs:element name="camiones" >
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="camion" minOccurs="0" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element type="xs:integer" name="id_serie"/>
+                  <xs:element name="matricula">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                         <xs:minLength value="7"/>
+                        <xs:maxLength value="7"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="numero_bastidor">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="17"/>
+                        <xs:minLength value="17"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element type="xs:string" name="color"/>
+                  <xs:element type="xs:integer" name="numero_asientos"/>
+                  <xs:element type="xs:integer" name="precio"/>
+                  <xs:element type="xs:string" name="marca"/>
+                  <xs:element type="xs:string" name="modelo"/>
+                  <xs:element type="xs:date" name="fecha_fabricacion"/>
+                  <xs:element type="xs:integer" name="carga"/>
+                  <xs:element name="tipo_mercancia">
+                   <xs:simpleType >
+                    <xs:restriction base="xs:string">
+                      <xs:enumeration value="G"/>
+                      <xs:enumeration value="A"/>
+                      <xs:enumeration value="P"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+          </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
